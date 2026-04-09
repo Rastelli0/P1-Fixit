@@ -54,7 +54,18 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(labelText: 'E-mail', border: OutlineInputBorder()),
-                validator: (value) => value!.isEmpty ? 'Insira seu e-mail' : null,
+                validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Insira seu e-mail';
+                }
+                final emailRegex = RegExp(
+                  r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                );
+                if (!emailRegex.hasMatch(value)) {
+                  return 'Insira um e-mail válido';
+                }
+                  return null;
+                }
               ),
               const SizedBox(height: 16),
 
